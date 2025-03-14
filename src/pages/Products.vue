@@ -13,7 +13,13 @@ import type { Product } from "@/general";
 import { cn } from "@/lib/utils";
 import { useFavoritesStore } from "@/stores/favorites";
 
-import { ArrowLeft, ArrowRight, Loader2, Star } from "lucide-vue-next";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ExternalLink,
+  Loader2,
+  Star,
+} from "lucide-vue-next";
 import { onMounted, ref, computed } from "vue";
 
 const favoritesStore = useFavoritesStore();
@@ -85,7 +91,7 @@ onMounted(() => {
             <TableHead class="w-[100px] md:min-w-[150px]"> Image </TableHead>
             <TableHead class="w-[500px] md:w-full">Name</TableHead>
             <TableHead class="w-[50px] md:min-w-[300px]">Category</TableHead>
-            <TableHead class="w-[50px] md:min-w-[100px]"> Favorite </TableHead>
+            <TableHead class="w-[50px] md:min-w-[100px]"> Actions </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody v-if="isProductLoading" class="h-full">
@@ -123,18 +129,26 @@ onMounted(() => {
               product.category.name
             }}</TableCell>
             <TableCell>
-              <button>
-                <Star
-                  @click="() => handleFavorite(product)"
-                  :class="
-                    cn(
-                      favoritesStore.isFavorite(product.id)
-                        ? 'fill-neutral-900'
-                        : '',
-                    )
-                  "
-                />
-              </button>
+              <div class="flex size-full items-center gap-2">
+                <button>
+                  <Star
+                    @click="() => handleFavorite(product)"
+                    class="transition-all duration-200 hover:scale-105"
+                    :class="
+                      cn(
+                        favoritesStore.isFavorite(product.id)
+                          ? 'fill-neutral-900'
+                          : '',
+                      )
+                    "
+                  />
+                </button>
+                <RouterLink :to="`/product/${product.slug}`">
+                  <ExternalLink
+                    class="transition-all duration-200 hover:scale-105"
+                  />
+                </RouterLink>
+              </div>
             </TableCell>
           </TableRow>
         </TableBody>
