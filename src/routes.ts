@@ -2,6 +2,7 @@ import Categories from "@/pages/Categories.vue";
 import Home from "@/pages/Home.vue";
 import Products from "@/pages/Products.vue";
 import { createRouter, createWebHistory } from "vue-router";
+import Favorites from "@/pages/favorites.vue";
 
 export const routes = [
   {
@@ -21,6 +22,12 @@ export const routes = [
     route: "/products",
     component: Products,
     isNavLink: true,
+  },
+  {
+    title: "Favorites",
+    route: "/favorites",
+    component: Favorites,
+    isNavLink: false,
   },
 ];
 

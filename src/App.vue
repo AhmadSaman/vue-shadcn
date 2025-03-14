@@ -2,6 +2,10 @@
 import { RouterView } from "vue-router";
 import Navbar from "@/components/Navbar.vue";
 import Footer from "./components/footer.vue";
+
+import { useFavoritesStore } from "@/stores/favorites";
+const favoritesStore = useFavoritesStore();
+favoritesStore.initializeStore();
 </script>
 
 <template>
@@ -10,8 +14,8 @@ import Footer from "./components/footer.vue";
   >
     <Navbar />
     <RouterView />
-    <Footer />
   </div>
+  <Footer />
 </template>
 
 <style scoped></style>

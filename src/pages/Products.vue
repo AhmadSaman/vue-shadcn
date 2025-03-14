@@ -10,8 +10,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { Product } from "@/general";
-import { ArrowLeft, ArrowRight, Loader2 } from "lucide-vue-next";
+import { cn } from "@/lib/utils";
+import { useFavoritesStore } from "@/stores/favorites";
+
+import { ArrowLeft, ArrowRight, Loader2, Star } from "lucide-vue-next";
 import { onMounted, ref, computed } from "vue";
+
+const favoritesStore = useFavoritesStore();
 
 const products = ref<Product[]>([]);
 const isProductLoading = ref(false);
@@ -54,6 +59,9 @@ const nextPage = () => {
     changePage(currentPage.value + 1);
   }
 };
+const handleFavorite = (product: Product) => {
+  favoritesStore.toggleFavorite(product);
+};
 
 onMounted(() => {
   fetchProducts();
@@ -71,18 +79,18 @@ onMounted(() => {
     <section
       class="flex h-full flex-1 overflow-auto rounded-3xl border bg-white p-4"
     >
-      <Table class="h-full w-full flex-1 overflow-auto">
+      <Table class="overflow-auto">
         <TableHeader>
           <TableRow>
-            <TableHead class="w-[150px]"> Image </TableHead>
-            <TableHead class="w-[350px]">Name</TableHead>
-            <TableHead class="w-[100px]">Category</TableHead>
-            <TableHead class="text-right"> Favorite </TableHead>
+            <TableHead class="w-[100px] md:min-w-[150px]"> Image </TableHead>
+            <TableHead class="w-[500px] md:w-full">Name</TableHead>
+            <TableHead class="w-[50px] md:min-w-[300px]">Category</TableHead>
+            <TableHead class="w-[50px] md:min-w-[100px]"> Favorite </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody v-if="isProductLoading" class="h-full">
-          <TableRow>
-            <TableCell colspan="4" class="h-full text-center align-middle">
+          <TableRow class="flex-1">
+            <TableCell colspan="4" class="text-center align-middle">
               <div class="flex h-full items-center justify-center">
                 <Loader2 class="animate-spin" />
               </div>
@@ -90,10 +98,10 @@ onMounted(() => {
           </TableRow>
         </TableBody>
         <TableBody v-else-if="products.length === 0" class="h-full">
-          <TableRow>
-            <TableCell colspan="4" class="h-full text-center align-middle">
+          <TableRow class="flex-1">
+            <TableCell colspan="4" class="text-center align-middle">
               <div class="flex h-full items-center justify-center">
-                No products found
+                <p>No products found</p>
               </div>
             </TableCell>
           </TableRow>
@@ -114,8 +122,19 @@ onMounted(() => {
             <TableCell class="text-nowrap">{{
               product.category.name
             }}</TableCell>
-            <TableCell class="text-right">
-              {{ "fav" }}
+            <TableCell>
+              <button>
+                <Star
+                  @click="() => handleFavorite(product)"
+                  :class="
+                    cn(
+                      favoritesStore.isFavorite(product.id)
+                        ? 'fill-neutral-900'
+                        : '',
+                    )
+                  "
+                />
+              </button>
             </TableCell>
           </TableRow>
         </TableBody>
