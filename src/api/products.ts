@@ -13,3 +13,11 @@ export const getProducts = ({ offset, limit }: GetProductsArgs) => {
     },
   });
 };
+
+export const getProduct = (slug: string) => {
+  return axiosInstance.get(`/products/slug/${slug}`);
+};
+
+export const getRelatedProducts = (slug: string) => {
+  return axiosInstance.get(`/products/slug/${slug}/related`);
+};
