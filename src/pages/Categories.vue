@@ -91,6 +91,7 @@ const handleFavorite = (product: Product) => {
 
 const handleCategoryChange = (slug: string) => {
   selectedCategories.value = slug;
+  currentPage.value = 1;
   fetchProducts(slug);
 };
 
