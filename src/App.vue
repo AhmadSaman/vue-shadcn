@@ -10,9 +10,9 @@ favoritesStore.initializeStore();
 
 <template>
   <div
-    class="mx-auto flex flex-col bg-[radial-gradient(#80808050_1px,transparent_1px)] font-poppins [background-size:16px_16px]"
+    class="mx-auto flex min-h-screen flex-col bg-[radial-gradient(#80808050_1px,transparent_1px)] font-poppins [background-size:16px_16px]"
   >
-    <div class="flex-1">
+    <div class="flex flex-1 flex-col">
       <Navbar />
       <RouterView />
     </div>

@@ -19,17 +19,13 @@ const handleFavorite = (product: Product) => {
 };
 </script>
 <template>
-  <main
-    class="custom-container mx-auto my-1 flex h-full flex-col gap-3 overflow-hidden"
-  >
+  <main class="custom-container mx-auto my-1 flex h-full flex-1 flex-col gap-3">
     <header class="flex flex-col gap-2">
       <h1 class="text-3xl font-medium md:text-4xl">Favorites Page</h1>
       <p>You can see all the Favorite Products here</p>
     </header>
-    <section
-      class="flex h-full flex-1 overflow-auto rounded-3xl border bg-white p-4"
-    >
-      <Table class="overflow-auto">
+    <section class="flex flex-1 rounded-3xl border bg-white p-4">
+      <Table class="h-full">
         <TableHeader>
           <TableRow>
             <TableHead class="w-[100px] md:min-w-[150px]"> Image </TableHead>
