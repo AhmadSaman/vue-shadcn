@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
+import Navbar from "@/components/Navbar.vue";
+import Footer from "./components/footer.vue";
 </script>
 
 <template>
-  <div class="font-poppins">
-    <nav class="flex gap-2">
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-    </nav>
+  <div
+    class="mx-auto flex h-screen flex-col bg-[radial-gradient(#80808030_1px,transparent_1px)] font-poppins [background-size:16px_16px]"
+  >
+    <Navbar />
     <main>
       <RouterView />
     </main>
   </div>
+  <Footer />
 </template>
 
 <style scoped></style>
