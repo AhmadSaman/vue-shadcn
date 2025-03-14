@@ -3,7 +3,7 @@ import { Button } from "./components/ui/button";
 </script>
 
 <template>
-  <div>
+  <div class="font-poppins">
     <h1 class="h-10 text-center text-4xl text-green-300">Hello Vue</h1>
 
     <Button>Click me</Button>
