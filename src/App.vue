@@ -4,7 +4,7 @@ import { Button } from "./components/ui/button";
 
 <template>
   <div>
-    <h1 class="text-4xl text-center text-green-300">Hello Vue</h1>
+    <h1 class="h-10 text-center text-4xl text-green-300">Hello Vue</h1>
 
     <Button>Click me</Button>
   </div>
