@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { Button } from "./components/ui/button";
+import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
   <div class="font-poppins">
-    <h1 class="h-10 text-center text-4xl text-green-300">Hello Vue</h1>
-
-    <Button>Click me</Button>
+    <nav class="flex gap-2">
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+    </nav>
+    <main>
+      <RouterView />
+    </main>
   </div>
 </template>
 
