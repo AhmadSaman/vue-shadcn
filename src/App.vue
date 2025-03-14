@@ -6,14 +6,12 @@ import Footer from "./components/footer.vue";
 
 <template>
   <div
-    class="mx-auto flex h-screen flex-col bg-[radial-gradient(#80808030_1px,transparent_1px)] font-poppins [background-size:16px_16px]"
+    class="mx-auto flex h-screen flex-col overflow-auto bg-[radial-gradient(#80808050_1px,transparent_1px)] font-poppins [background-size:16px_16px]"
   >
     <Navbar />
-    <main>
-      <RouterView />
-    </main>
+    <RouterView />
+    <Footer />
   </div>
-  <Footer />
 </template>
 
 <style scoped></style>
