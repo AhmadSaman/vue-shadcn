@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { useFavoritesStore } from "@/stores/favorites";
 import { AxiosError } from "axios";
 import { ArrowLeft, Star } from "lucide-vue-next";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const favoritesStore = useFavoritesStore();
@@ -61,6 +61,13 @@ const goBack = () => {
   router.go(-1); // This navigates back one step in history
 };
 
+watch(
+  () => route.params.slug,
+  (newSlug) => {
+    fetchProduct(newSlug as string);
+  },
+);
+
 onMounted(() => {
   fetchProduct(route.params.slug as string);
   fetchRelatedProducts(route.params.slug as string);
@@ -84,21 +91,21 @@ onMounted(() => {
       <section class="flex flex-col gap-2 md:flex-row">
         <div
           v-if="isProductLoading"
-          class="flex h-[400px] w-1/3 flex-col items-center sm:w-auto"
+          class="flex h-[400px] w-full flex-col items-center sm:w-auto md:w-1/3"
         >
           <Skeleton class="size-full" />
         </div>
         <ImgCarousel v-else v-if="product" :images="product.images" />
         <div
           v-if="isProductLoading"
-          class="flex h-[400px] w-2/3 flex-col justify-center gap-4 rounded-3xl"
+          class="flex h-[400px] w-full flex-col justify-center gap-4 rounded-3xl md:w-2/3"
         >
           <Skeleton class="size-full" />
         </div>
         <div
           v-else
           v-if="product"
-          class="flex flex-1 flex-col justify-center gap-4 rounded-3xl border bg-white p-6"
+          class="flex h-[400px] flex-1 flex-col gap-4 rounded-3xl border bg-white px-6 py-10"
         >
           <div class="flex justify-between">
             <h3 class="text-6xl font-semibold">{{ product.price }}$</h3>

@@ -37,9 +37,9 @@ watchOnce(emblaMainApi, (emblaMainApi) => {
 </script>
 
 <template>
-  <div class="flex w-full flex-col items-center sm:w-auto">
+  <div class="flex w-[full] flex-col items-center sm:w-auto">
     <Carousel
-      class="relative w-full max-w-xs"
+      class="relative w-full max-w-xs flex-1"
       @init-api="(val) => (emblaMainApi = val)"
     >
       <CarouselContent>
