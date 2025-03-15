@@ -44,7 +44,7 @@ const recordProductVisit = (product: Product) => {
         class="!size-5 text-neutral-900"
         :class="
           favoritesStore.isFavorite(product.id)
-            ? 'fill-neutral-900 dark:fill-neutral-50'
+            ? 'fill-neutral-900 dark:fill-neutral-50 dark:text-neutral-50'
             : ''
         "
       />

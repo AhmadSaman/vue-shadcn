@@ -58,7 +58,7 @@ const darkModeStore = useDarkModeStore();
             variant="secondary"
             size="icon"
           >
-            <Menu class="!size-6 text-neutral-900" />
+            <Menu class="!size-6 text-neutral-900 dark:text-neutral-50" />
           </Button>
         </SheetTrigger>
         <SheetContent class="flex w-full flex-col justify-between">
