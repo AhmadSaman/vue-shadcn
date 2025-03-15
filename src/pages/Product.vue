@@ -5,9 +5,11 @@ import ProductCard from "@/components/ProductCard.vue";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "@/components/ui/toast";
 import type { Product } from "@/general";
 import { cn } from "@/lib/utils";
 import { useFavoritesStore } from "@/stores/favorites";
+import { AxiosError } from "axios";
 import { ArrowLeft, Star } from "lucide-vue-next";
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -41,7 +43,12 @@ const fetchRelatedProducts = async (slug: string) => {
     relatedProduct.value = data as Product[];
     isRelatedProductsLoading.value = false;
   } catch (error) {
-    console.error("Failed to fetch product:", error);
+    console.error("Failed to fetch related products:", error);
+    if (error instanceof AxiosError)
+      toast({
+        variant: "destructive",
+        title: error.response?.data.message[0],
+      });
     isRelatedProductsLoading.value = false;
   }
 };

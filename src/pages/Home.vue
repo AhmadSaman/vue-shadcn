@@ -7,6 +7,8 @@ import { getProducts } from "@/api/products";
 import type { Product } from "@/general";
 import ProductCard from "@/components/ProductCard.vue";
 import { Skeleton } from "@/components/ui/skeleton";
+import { AxiosError } from "axios";
+import { toast } from "@/components/ui/toast";
 
 const products = ref<Product[]>([]);
 const isProductLoading = ref(false);
@@ -21,6 +23,11 @@ const fetchProducts = async (search?: string) => {
     isProductLoading.value = false;
   } catch (error) {
     console.error("Failed to fetch products:", error);
+    if (error instanceof AxiosError)
+      toast({
+        variant: "destructive",
+        title: error.response?.data.message[0],
+      });
     isProductLoading.value = false;
   }
 };

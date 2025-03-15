@@ -10,11 +10,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { toast } from "@/components/ui/toast";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import type { Category, Product } from "@/general";
 import { cn } from "@/lib/utils";
 import { useFavoritesStore } from "@/stores/favorites";
+import { AxiosError } from "axios";
 
-import { ArrowLeft, ArrowRight, ExternalLink, Star } from "lucide-vue-next";
+import { ArrowLeft, ArrowRight, Eye, Star } from "lucide-vue-next";
 import { onMounted, ref, computed } from "vue";
 
 const favoritesStore = useFavoritesStore();
@@ -44,6 +52,11 @@ const fetchProducts = async (category: string) => {
     isProductLoading.value = false;
   } catch (error) {
     console.error("Failed to fetch products:", error);
+    if (error instanceof AxiosError)
+      toast({
+        variant: "destructive",
+        title: error.response?.data.message[0],
+      });
     isProductLoading.value = false;
   }
 };
@@ -55,7 +68,12 @@ const fetchCategories = async () => {
     categories.value = data as Category[];
     isCategoriesLoading.value = false;
   } catch (error) {
-    console.error("Failed to fetch products:", error);
+    console.error("Failed to fetch categories:", error);
+    if (error instanceof AxiosError)
+      toast({
+        variant: "destructive",
+        title: error.response?.data.message[0],
+      });
     isCategoriesLoading.value = false;
   }
 };
@@ -203,24 +221,40 @@ onMounted(() => {
               }}</TableCell>
               <TableCell>
                 <div class="flex size-full items-center gap-2">
-                  <button>
-                    <Star
-                      @click="() => handleFavorite(product)"
-                      class="transition-all duration-200 hover:scale-105"
-                      :class="
-                        cn(
-                          favoritesStore.isFavorite(product.id)
-                            ? 'fill-neutral-900'
-                            : '',
-                        )
-                      "
-                    />
-                  </button>
-                  <RouterLink :to="`/product/${product.slug}`">
-                    <ExternalLink
-                      class="transition-all duration-200 hover:scale-105"
-                    />
-                  </RouterLink>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger as-child>
+                        <button>
+                          <Star
+                            @click="() => handleFavorite(product)"
+                            class="transition-all duration-200 hover:scale-105"
+                            :class="
+                              cn(
+                                favoritesStore.isFavorite(product.id)
+                                  ? 'fill-neutral-900'
+                                  : '',
+                              )
+                            "
+                          /></button
+                      ></TooltipTrigger>
+                      <TooltipContent>
+                        <p>Add to Favorite</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger as-child>
+                        <RouterLink :to="`/product/${product.slug}`">
+                          <Eye
+                            class="transition-all duration-200 hover:scale-105"
+                          /> </RouterLink
+                      ></TooltipTrigger>
+                      <TooltipContent>
+                        <p>Open Product</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
               </TableCell>
             </TableRow>

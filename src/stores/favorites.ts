@@ -1,3 +1,4 @@
+import { toast } from "@/components/ui/toast";
 import type { Product } from "@/general";
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
@@ -21,6 +22,9 @@ export const useFavoritesStore = defineStore("favorites", () => {
     if (!isFavorite(product.id)) {
       favoriteProducts.value.push(product);
       saveToLocalStorage();
+      toast({
+        title: "Added to favorites list successfully",
+      });
     }
   }
 
@@ -29,6 +33,9 @@ export const useFavoritesStore = defineStore("favorites", () => {
       (product) => product.id !== productId,
     );
     saveToLocalStorage();
+    toast({
+      title: "Removed from favorites list",
+    });
   }
 
   function toggleFavorite(product: Product) {

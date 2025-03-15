@@ -10,11 +10,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { toast } from "@/components/ui/toast";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import type { Product } from "@/general";
 import { cn } from "@/lib/utils";
 import { useFavoritesStore } from "@/stores/favorites";
+import { AxiosError } from "axios";
 
-import { ArrowLeft, ArrowRight, ExternalLink, Star } from "lucide-vue-next";
+import { ArrowLeft, ArrowRight, Eye, Star } from "lucide-vue-next";
 import { onMounted, ref, computed } from "vue";
 
 const favoritesStore = useFavoritesStore();
@@ -38,6 +46,11 @@ const fetchProducts = async () => {
     isProductLoading.value = false;
   } catch (error) {
     console.error("Failed to fetch products:", error);
+    if (error instanceof AxiosError)
+      toast({
+        variant: "destructive",
+        title: error.response?.data.message[0],
+      });
     isProductLoading.value = false;
   }
 };
@@ -81,7 +94,8 @@ onMounted(() => {
           <TableRow>
             <TableHead class="w-[100px] md:min-w-[150px]"> Image </TableHead>
             <TableHead class="w-[500px] md:w-full">Name</TableHead>
-            <TableHead class="w-[50px] md:min-w-[300px]">Category</TableHead>
+            <TableHead class="w-[50px] md:min-w-[100px]">Price</TableHead>
+            <TableHead class="w-[50px] md:min-w-[200px]">Category</TableHead>
             <TableHead class="w-[50px] md:min-w-[100px]"> Actions </TableHead>
           </TableRow>
         </TableHeader>
@@ -127,30 +141,49 @@ onMounted(() => {
                 />
               </div>
             </TableCell>
-            <TableCell class="font-medium">{{ product.title }}</TableCell>
+            <TableCell class="text-nowrap font-medium">{{
+              product.title
+            }}</TableCell>
+            <TableCell>{{ product.price }}</TableCell>
             <TableCell class="text-nowrap">{{
               product.category.name
             }}</TableCell>
             <TableCell>
               <div class="flex size-full items-center gap-2">
-                <button>
-                  <Star
-                    @click="() => handleFavorite(product)"
-                    class="transition-all duration-200 hover:scale-105"
-                    :class="
-                      cn(
-                        favoritesStore.isFavorite(product.id)
-                          ? 'fill-neutral-900'
-                          : '',
-                      )
-                    "
-                  />
-                </button>
-                <RouterLink :to="`/product/${product.slug}`">
-                  <ExternalLink
-                    class="transition-all duration-200 hover:scale-105"
-                  />
-                </RouterLink>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger as-child>
+                      <button>
+                        <Star
+                          @click="() => handleFavorite(product)"
+                          class="transition-all duration-200 hover:scale-105"
+                          :class="
+                            cn(
+                              favoritesStore.isFavorite(product.id)
+                                ? 'fill-neutral-900'
+                                : '',
+                            )
+                          "
+                        /></button
+                    ></TooltipTrigger>
+                    <TooltipContent>
+                      <p>Add to Favorite</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger as-child>
+                      <RouterLink :to="`/product/${product.slug}`">
+                        <Eye
+                          class="transition-all duration-200 hover:scale-105"
+                        /> </RouterLink
+                    ></TooltipTrigger>
+                    <TooltipContent>
+                      <p>Open Product</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             </TableCell>
           </TableRow>
