@@ -1,31 +1,16 @@
 <script setup lang="ts">
 import { getCategories, getCategoryProducts } from "@/api/categories";
+import DataTable from "@/components/DataTable.vue";
 import { Button } from "@/components/ui/button";
 import Skeleton from "@/components/ui/skeleton/Skeleton.vue";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+
 import { toast } from "@/components/ui/toast";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 import type { Category, Product } from "@/general";
-import { cn } from "@/lib/utils";
-import { useFavoritesStore } from "@/stores/favorites";
 import { AxiosError } from "axios";
 
-import { ArrowLeft, ArrowRight, Eye, Star } from "lucide-vue-next";
+import { ArrowLeft, ArrowRight } from "lucide-vue-next";
 import { onMounted, ref, computed } from "vue";
-
-const favoritesStore = useFavoritesStore();
 
 const products = ref<Product[]>([]);
 const isProductLoading = ref(false);
@@ -96,9 +81,6 @@ const nextPage = () => {
     changePage(currentPage.value + 1);
   }
 };
-const handleFavorite = (product: Product) => {
-  favoritesStore.toggleFavorite(product);
-};
 
 const handleCategoryChange = (slug: string) => {
   selectedCategories.value = slug;
@@ -147,121 +129,11 @@ onMounted(() => {
       <section
         class="flex flex-1 rounded-3xl border bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800"
       >
-        <Table class="h-full">
-          <TableHeader>
-            <TableRow>
-              <TableHead class="md:min-w-[150px]"> Image </TableHead>
-              <TableHead class="min-w-[200px] md:w-full">Name</TableHead>
-              <TableHead class="min-w-[50px] md:min-w-[300px]"
-                >Category</TableHead
-              >
-              <TableHead class="min-w-[50px] md:min-w-[100px]">
-                Actions
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody
-            v-if="isProductLoading"
-            class="h-full w-full overflow-auto"
-          >
-            <TableRow
-              v-for="skeleton in Array(pageSize).fill(0)"
-              :key="skeleton"
-            >
-              <TableCell>
-                <div class="size-[84px]">
-                  <Skeleton class="size-full" />
-                </div>
-              </TableCell>
-              <TableCell class="font-medium">
-                <Skeleton class="size-full" />
-              </TableCell>
-              <TableCell class="text-nowrap">
-                <Skeleton class="size-full" />
-              </TableCell>
-              <TableCell>
-                <Skeleton class="size-full" />
-              </TableCell>
-            </TableRow>
-          </TableBody>
-          <TableBody
-            v-else-if="products.length === 0 && !selectedCategories"
-            class="h-full"
-          >
-            <TableRow class="flex-1">
-              <TableCell colspan="4" class="text-center align-middle">
-                <div class="flex h-full items-center justify-center">
-                  <p>Try to click on a category</p>
-                </div>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-          <TableBody v-else-if="products.length === 0" class="h-full">
-            <TableRow class="flex-1">
-              <TableCell colspan="4" class="text-center align-middle">
-                <div class="flex h-full items-center justify-center">
-                  <p>No products found</p>
-                </div>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-          <TableBody v-else class="h-full w-full overflow-auto">
-            <TableRow v-for="product in products" :key="product.id">
-              <TableCell>
-                <div class="size-[84px]">
-                  <img
-                    :src="product.images[0]"
-                    loading="lazy"
-                    :alt="product.title"
-                    class="size-full rounded-2xl object-cover"
-                  />
-                </div>
-              </TableCell>
-              <TableCell class="font-medium">{{ product.title }}</TableCell>
-              <TableCell class="text-nowrap">{{
-                product.category.name
-              }}</TableCell>
-              <TableCell>
-                <div class="flex size-full items-center gap-2">
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger as-child>
-                        <button>
-                          <Star
-                            @click="() => handleFavorite(product)"
-                            class="transition-all duration-200 hover:scale-105"
-                            :class="
-                              cn(
-                                favoritesStore.isFavorite(product.id)
-                                  ? 'fill-neutral-900 dark:fill-neutral-50'
-                                  : '',
-                              )
-                            "
-                          /></button
-                      ></TooltipTrigger>
-                      <TooltipContent>
-                        <p>Add to Favorite</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger as-child>
-                        <RouterLink :to="`/product/${product.slug}`">
-                          <Eye
-                            class="transition-all duration-200 hover:scale-105"
-                          /> </RouterLink
-                      ></TooltipTrigger>
-                      <TooltipContent>
-                        <p>Open Product</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+        <DataTable
+          :products="products"
+          :is-loading="isProductLoading"
+          :page-size="pageSize"
+        />
       </section>
     </section>
     <div class="flex items-center justify-between">
