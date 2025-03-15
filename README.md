@@ -1,5 +1,65 @@
-# Vue 3 + TypeScript + Vite
+# Vue + ShadCN Experiment
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This Project is using [ShadCN](https://ui.shadcn.com/)(vue version) with Vue using the Composition API. The project is built with TypeScript, Tailwind CSS, and other modern tools.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## What is ShadCN?
+
+ShadCN is a collection of accessible and customizable UI components built on top of Radix UI and Tailwind CSS. It provides a set of pre-styled components that you can copy and modify to fit your needs, without being locked into a design system.
+
+### How ShadCN Works
+- ShadCN components are not installed as a package but copied directly into your project.
+- You can modify and style them however you want since they are not locked behind a library.
+- It leverages Tailwind CSS for styling and Radix UI for accessibility.
+
+## Tech Stack
+
+- **Vue 3** (Composition API)
+- **TypeScript**
+- **Tailwind CSS**
+- **Pinia** (State management)
+- **Vue Router**
+- **Vite** (Build tool)
+- **Lucide Vue** (Icons)
+
+
+## Live Demo
+
+🔗 Live URL: https://shad-vue.vercel.app
+
+## Installation
+
+Clone the repository and install dependencies:
+
+
+```sh
+npm install
+```
+
+### Development
+
+Start the development server:
+
+```sh
+npm run dev
+```
+
+### Build
+
+Build the project for production:
+
+```sh
+npm run build
+```
+
+## Notes
+
+My thoughts on the ShadCN Vue version: It is decent, but there are some small issues with certain components. However, since it is community-based, improvements and fixes are actively contributed by developers, But **I don't suggest it for Production use**
+
+This is an experimental project to explore how ShadCN integrates with Vue. It is not intended for production use but rather as a learning exercise.
+
+Feel free to explore, modify, and improve the setup!
+
+---
+
+
+
