@@ -5,9 +5,9 @@ import { routes } from "@/routes";
 <template>
   <div class="bg-neutral-900">
     <div
-      class="custom-container mx-auto flex h-10 items-center justify-between bg-neutral-900 text-neutral-50"
+      class="custom-container mx-auto flex items-center justify-between bg-neutral-900 p-2 text-neutral-50"
     >
-      <p>&copy; 2025 <a href="https://weisi.dev">Ahmad</a></p>
+      <p>&copy; 2025 <a href="https://weisi.dev" class="text-">Ahmad</a></p>
       <ul class="flex gap-4">
         <li v-for="route in routes" :key="route.route">
           <RouterLink
