@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { getCategories, getCategoryProducts } from "@/api/categories";
 import { Button } from "@/components/ui/button";
+import Skeleton from "@/components/ui/skeleton/Skeleton.vue";
 import {
   Table,
   TableBody,
@@ -13,13 +14,7 @@ import type { Category, Product } from "@/general";
 import { cn } from "@/lib/utils";
 import { useFavoritesStore } from "@/stores/favorites";
 
-import {
-  ArrowLeft,
-  ArrowRight,
-  ExternalLink,
-  Loader2,
-  Star,
-} from "lucide-vue-next";
+import { ArrowLeft, ArrowRight, ExternalLink, Star } from "lucide-vue-next";
 import { onMounted, ref, computed } from "vue";
 
 const favoritesStore = useFavoritesStore();
@@ -106,8 +101,15 @@ onMounted(() => {
     </header>
     <section class="flex flex-1 flex-col gap-4">
       <section class="h-12">
-        <div v-if="!isCategoriesLoading">
-          <ul class="flex gap-4 overflow-auto">
+        <div v-if="isCategoriesLoading">
+          <div class="flex gap-4 overflow-auto">
+            <div v-for="skeleton in Array(6).fill(0)" :key="skeleton">
+              <Skeleton class="h-full w-[100px] rounded-3xl px-9 py-6" />
+            </div>
+          </div>
+        </div>
+        <div v-else>
+          <div class="flex gap-4 overflow-auto">
             <Button
               v-for="category in categories"
               :key="category.slug"
@@ -119,7 +121,7 @@ onMounted(() => {
             >
               {{ category.name }}
             </Button>
-          </ul>
+          </div>
         </div>
       </section>
       <section
@@ -138,12 +140,27 @@ onMounted(() => {
               </TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody v-if="isProductLoading" class="h-full">
-            <TableRow class="flex-1">
-              <TableCell colspan="4" class="text-center">
-                <div class="flex h-full items-center justify-center">
-                  <Loader2 class="animate-spin" />
+          <TableBody
+            v-if="isProductLoading"
+            class="h-full w-full overflow-auto"
+          >
+            <TableRow
+              v-for="skeleton in Array(pageSize).fill(0)"
+              :key="skeleton"
+            >
+              <TableCell>
+                <div class="size-[84px]">
+                  <Skeleton class="size-full" />
                 </div>
+              </TableCell>
+              <TableCell class="font-medium">
+                <Skeleton class="size-full" />
+              </TableCell>
+              <TableCell class="text-nowrap">
+                <Skeleton class="size-full" />
+              </TableCell>
+              <TableCell>
+                <Skeleton class="size-full" />
               </TableCell>
             </TableRow>
           </TableBody>

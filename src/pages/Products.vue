@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { getProducts } from "@/api/products";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -13,13 +14,7 @@ import type { Product } from "@/general";
 import { cn } from "@/lib/utils";
 import { useFavoritesStore } from "@/stores/favorites";
 
-import {
-  ArrowLeft,
-  ArrowRight,
-  ExternalLink,
-  Loader2,
-  Star,
-} from "lucide-vue-next";
+import { ArrowLeft, ArrowRight, ExternalLink, Star } from "lucide-vue-next";
 import { onMounted, ref, computed } from "vue";
 
 const favoritesStore = useFavoritesStore();
@@ -90,16 +85,28 @@ onMounted(() => {
             <TableHead class="w-[50px] md:min-w-[100px]"> Actions </TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody v-if="isProductLoading" class="h-full">
-          <TableRow class="flex-1">
-            <TableCell colspan="4" class="text-center align-middle">
-              <div class="flex h-full items-center justify-center">
-                <Loader2 class="animate-spin" />
+        <TableBody v-if="isProductLoading" class="h-full w-full overflow-auto">
+          <TableRow v-for="skeleton in Array(pageSize).fill(0)" :key="skeleton">
+            <TableCell>
+              <div class="size-[84px]">
+                <Skeleton class="size-full" />
               </div>
+            </TableCell>
+            <TableCell class="font-medium">
+              <Skeleton class="size-full" />
+            </TableCell>
+            <TableCell class="text-nowrap">
+              <Skeleton class="size-full" />
+            </TableCell>
+            <TableCell>
+              <Skeleton class="size-full" />
             </TableCell>
           </TableRow>
         </TableBody>
-        <TableBody v-else-if="products.length === 0" class="h-full">
+        <TableBody
+          v-else-if="products.length === 0 && isProductLoading === false"
+          class="h-full"
+        >
           <TableRow class="flex-1">
             <TableCell colspan="4" class="text-center align-middle">
               <div class="flex h-full items-center justify-center">

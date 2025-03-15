@@ -31,13 +31,16 @@ import { routes } from "@/routes";
           <Moon class="!size-5 text-neutral-900" />
         </Button>
         <Button
-          class="group h-10 rounded-3xl px-6 py-3 transition-colors duration-200"
+          class="h-10 rounded-3xl px-6 py-3 transition-colors duration-200"
           variant="secondary"
           size="icon"
           as-child
         >
-          <RouterLink to="/favorites">
-            <Star class="!size-5 text-neutral-900" />
+          <RouterLink
+            to="/favorites"
+            active-class="bg-neutral-900 !text-neutral-50 hover:bg-neutral-900/90"
+          >
+            <Star class="!size-5" />
           </RouterLink>
         </Button>
       </div>
@@ -82,7 +85,7 @@ import { routes } from "@/routes";
               >
                 <RouterLink
                   to="/favorites"
-                  active-class="bg-neutral-900 text-neutral-50 hover:bg-neutral-900/90"
+                  active-class="bg-neutral-900 !text-neutral-50 hover:bg-neutral-900/90"
                 >
                   <Star class="!size-7" />
                 </RouterLink>
