@@ -4,7 +4,11 @@ import Navbar from "@/components/Navbar.vue";
 import Footer from "./components/footer.vue";
 
 import { useFavoritesStore } from "@/stores/favorites";
+import { useVisitedProductsStore } from "./stores/visited";
+
+const visitedStore = useVisitedProductsStore();
 const favoritesStore = useFavoritesStore();
+visitedStore.initializeStore();
 favoritesStore.initializeStore();
 </script>
 
