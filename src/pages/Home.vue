@@ -55,7 +55,7 @@ onMounted(() => {
           type="text"
           v-model="searchQuery"
           placeholder="Search..."
-          class="rounded-3xl bg-white p-6 pl-12 transition-all duration-200"
+          class="rounded-3xl bg-white p-6 pl-12 text-base transition-all duration-200"
         />
         <span
           class="absolute inset-y-0 start-2 flex items-center justify-center px-2"
