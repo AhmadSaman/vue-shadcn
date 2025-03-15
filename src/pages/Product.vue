@@ -4,10 +4,11 @@ import ImgCarousel from "@/components/ImgCarousel.vue";
 import ProductCard from "@/components/ProductCard.vue";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { Product } from "@/general";
 import { cn } from "@/lib/utils";
 import { useFavoritesStore } from "@/stores/favorites";
-import { ArrowLeft, Loader2, Star } from "lucide-vue-next";
+import { ArrowLeft, Star } from "lucide-vue-next";
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
@@ -61,12 +62,7 @@ onMounted(() => {
 
 <template>
   <main class="custom-container mx-auto h-full overflow-hidden">
-    <div v-if="isProductLoading" class="flex flex-1 justify-center">
-      <div class="flex h-full items-center justify-center">
-        <Loader2 class="animate-spin" />
-      </div>
-    </div>
-    <div v-else v-if="product" class="flex flex-col gap-8">
+    <div class="flex flex-col gap-8">
       <section class="flex gap-2">
         <Button
           class="rounded-full p-6 transition-colors duration-200"
@@ -79,9 +75,22 @@ onMounted(() => {
         <p class="my-auto text-lg">Back</p>
       </section>
       <section class="flex flex-col gap-2 md:flex-row">
-        <ImgCarousel :images="product.images" />
-
         <div
+          v-if="isProductLoading"
+          class="flex h-[400px] w-1/3 flex-col items-center sm:w-auto"
+        >
+          <Skeleton class="size-full" />
+        </div>
+        <ImgCarousel v-else v-if="product" :images="product.images" />
+        <div
+          v-if="isProductLoading"
+          class="flex h-[400px] w-2/3 flex-col justify-center gap-4 rounded-3xl"
+        >
+          <Skeleton class="size-full" />
+        </div>
+        <div
+          v-else
+          v-if="product"
           class="flex flex-1 flex-col justify-center gap-4 rounded-3xl border bg-white p-6"
         >
           <div class="flex justify-between">
@@ -115,10 +124,15 @@ onMounted(() => {
         </div>
       </section>
       <section class="flex w-full flex-col gap-2">
-        <p class="text-center text-lg font-medium" v-if="relatedProduct">
-          Related Products
-        </p>
+        <p class="text-center text-lg font-medium">Related Products</p>
         <div class="flex w-full flex-wrap justify-center gap-2 self-center">
+          <div
+            v-if="isProductLoading"
+            v-for="skeleton in Array(6).fill(0)"
+            :key="skeleton"
+          >
+            <Skeleton class="h-[400px] w-[300px]" />
+          </div>
           <ProductCard
             v-for="product in relatedProduct"
             :key="product.id"

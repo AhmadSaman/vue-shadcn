@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { STATIC_IMAGES } from "@/constants/images";
 import { Input } from "@/components/ui/input";
-import { Loader2, Search } from "lucide-vue-next";
+import { Search } from "lucide-vue-next";
 import { onMounted, ref, watch } from "vue";
 import { getProducts } from "@/api/products";
 import type { Product } from "@/general";
 import ProductCard from "@/components/ProductCard.vue";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const products = ref<Product[]>([]);
 const isProductLoading = ref(false);
@@ -66,8 +67,12 @@ onMounted(() => {
     </section>
     <section class="flex-1">
       <div class="flex w-full flex-wrap justify-center gap-6 self-center">
-        <div v-if="isProductLoading" class="text-center">
-          <Loader2 class="animate-spin" />
+        <div
+          v-if="isProductLoading"
+          v-for="skeleton in Array(6).fill(0)"
+          :key="skeleton"
+        >
+          <Skeleton class="h-[400px] w-[300px]" />
         </div>
         <ProductCard
           v-else

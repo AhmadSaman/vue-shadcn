@@ -13,7 +13,7 @@ const props = defineProps<SkeletonProps>();
   <div
     :class="
       cn(
-        'animate-pulse rounded-3xl bg-neutral-900/10 dark:bg-neutral-50/10',
+        'animate-pulse rounded-3xl bg-neutral-100 dark:bg-neutral-50/10',
         props.class,
       )
     "
