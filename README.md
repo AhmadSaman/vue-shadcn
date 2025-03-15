@@ -21,7 +21,8 @@ ShadCN is a collection of accessible and customizable UI components built on top
 - **Vite** (Build tool)
 - **Lucide Vue** (Icons)
 
-
+## API
+I'm using [Platzi Fake Store API](fakeapi.platzi.com) for the API, its a public API developers are using this API at the same time so if a product disappears or you see a strange image or data it's on the API side not mine   
 ## Live Demo
 
 🔗 Live URL: https://shad-vue.vercel.app
