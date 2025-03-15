@@ -1,15 +1,21 @@
 import axiosInstance from "./config";
 
 type GetProductsArgs = {
-  offset: number;
-  limit: number;
+  offset?: number;
+  limit?: number;
+  search?: string;
 };
 
-export const getProducts = ({ offset, limit }: GetProductsArgs) => {
+export const getProducts = ({
+  offset,
+  limit,
+  search = "",
+}: GetProductsArgs) => {
   return axiosInstance.get("/products", {
     params: {
       offset,
       limit,
+      title: search,
     },
   });
 };
