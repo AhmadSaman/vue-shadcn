@@ -9,8 +9,9 @@ import { routes } from "@/routes";
     >
       <p>&copy; 2025 <a href="https://weisi.dev">Ahmad</a></p>
       <ul class="flex gap-4">
-        <li v-for="route in routes" :key="route.route" :v-if="route.isNavLink">
+        <li v-for="route in routes" :key="route.route">
           <RouterLink
+            v-if="route.isNavLink"
             :to="route.route"
             class="text-neutral-500"
             active-class="!text-neutral-50"
