@@ -16,7 +16,7 @@ const products = ref<Product[]>([]);
 const isProductLoading = ref(false);
 
 const categories = ref<Category[]>([]);
-const selectedCategories = ref("");
+const selectedCategory = ref("");
 const isCategoriesLoading = ref(false);
 
 const currentPage = ref(1);
@@ -52,6 +52,8 @@ const fetchCategories = async () => {
     const { data } = await getCategories();
     categories.value = data as Category[];
     isCategoriesLoading.value = false;
+    selectedCategory.value = data[0].slug;
+    fetchProducts(data[0].slug);
   } catch (error) {
     console.error("Failed to fetch categories:", error);
     if (error instanceof AxiosError)
@@ -66,7 +68,7 @@ const fetchCategories = async () => {
 const changePage = (page: number) => {
   if (page >= 1) {
     currentPage.value = page;
-    fetchProducts(selectedCategories.value);
+    fetchProducts(selectedCategory.value);
   }
 };
 
@@ -83,7 +85,7 @@ const nextPage = () => {
 };
 
 const handleCategoryChange = (slug: string) => {
-  selectedCategories.value = slug;
+  selectedCategory.value = slug;
   currentPage.value = 1;
   fetchProducts(slug);
 };
@@ -118,7 +120,7 @@ onMounted(() => {
               @click="() => handleCategoryChange(category.slug)"
               class="rounded-3xl px-9 py-6 transition-all duration-200"
               :variant="
-                selectedCategories === category.slug ? 'default' : 'outline'
+                selectedCategory === category.slug ? 'default' : 'outline'
               "
             >
               {{ category.name }}
