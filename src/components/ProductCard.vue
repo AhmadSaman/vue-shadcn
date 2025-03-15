@@ -69,6 +69,7 @@ const recordProductVisit = (product: Product) => {
         loading="lazy"
         srcset=""
         class="h-[290px] rounded-3xl object-cover p-4"
+        height="290"
       />
       <div class="flex flex-col gap-1 text-center">
         <p class="line-clamp-1">
