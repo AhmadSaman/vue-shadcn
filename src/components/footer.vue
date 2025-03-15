@@ -1,7 +1,23 @@
+<script setup lang="ts">
+import { routes } from "@/routes";
+</script>
+
 <template>
-  <div
-    class="flex h-10 items-center justify-center bg-neutral-900 text-neutral-50"
-  >
-    <p>&copy; 2025 ahmad</p>
+  <div class="bg-neutral-900">
+    <div
+      class="custom-container mx-auto flex h-10 items-center justify-between bg-neutral-900 text-neutral-50"
+    >
+      <p>&copy; 2025 <a href="https://weisi.dev">Ahmad</a></p>
+      <ul class="flex gap-4">
+        <li v-for="route in routes" :key="route.route" :v-if="route.isNavLink">
+          <RouterLink
+            :to="route.route"
+            class="text-neutral-500"
+            active-class="!text-neutral-50"
+            >{{ route.title }}</RouterLink
+          >
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
