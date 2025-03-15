@@ -6,6 +6,8 @@ import Footer from "./components/footer.vue";
 import { useFavoritesStore } from "@/stores/favorites";
 import { useVisitedProductsStore } from "./stores/visited";
 
+import Toaster from "@/components/ui/toast/Toaster.vue";
+
 const visitedStore = useVisitedProductsStore();
 const favoritesStore = useFavoritesStore();
 visitedStore.initializeStore();
@@ -22,6 +24,7 @@ favoritesStore.initializeStore();
     </div>
     <Footer />
   </div>
+  <Toaster />
 </template>
 
 <style scoped></style>
