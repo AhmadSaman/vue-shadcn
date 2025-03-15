@@ -55,7 +55,12 @@ onMounted(() => {
   <main class="custom-container mx-auto my-5 flex flex-col gap-8">
     <section class="relative flex items-center justify-center md:h-96">
       <div v-for="image in STATIC_IMAGES" :key="image.name">
-        <img :src="image.src" :class="image.class" :alt="image.name" />
+        <img
+          loading="lazy"
+          :src="image.src"
+          :class="image.class"
+          :alt="image.name"
+        />
       </div>
       <div class="relative w-full items-center md:max-w-md">
         <Input

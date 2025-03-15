@@ -44,11 +44,13 @@ const fetchRelatedProducts = async (slug: string) => {
     isRelatedProductsLoading.value = false;
   } catch (error) {
     console.error("Failed to fetch related products:", error);
-    if (error instanceof AxiosError)
+    if (error instanceof AxiosError && error.response?.status === 400) {
       toast({
         variant: "destructive",
-        title: error.response?.data.message[0],
+        title: "No product found",
       });
+      router.push("/products");
+    }
     isRelatedProductsLoading.value = false;
   }
 };

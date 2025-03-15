@@ -44,7 +44,7 @@ watchOnce(emblaMainApi, (emblaMainApi) => {
     >
       <CarouselContent>
         <CarouselItem v-for="(url, index) in props.images" :key="index">
-          <img :src="url" alt="img" class="rounded-3xl" />
+          <img loading="lazy" :src="url" alt="img" class="rounded-3xl" />
         </CarouselItem>
       </CarouselContent>
     </Carousel>
@@ -64,7 +64,7 @@ watchOnce(emblaMainApi, (emblaMainApi) => {
             class="p-1 transition-all duration-200"
             :class="index === selectedIndex ? '' : 'opacity-50'"
           >
-            <img :src="url" alt="img" class="rounded-xl" />
+            <img loading="lazy" :src="url" alt="img" class="rounded-xl" />
           </div>
         </CarouselItem>
       </CarouselContent>

@@ -57,8 +57,15 @@ const recordProductVisit = (product: Product) => {
     <RouterLink
       @click="recordProductVisit(product)"
       :to="`/product/${product.slug}`"
+      class="flex flex-col items-center gap-1"
     >
-      <img :src="product.images[0]" alt="" srcset="" class="rounded-3xl p-4" />
+      <img
+        :src="product.images[0]"
+        :alt="product.title"
+        loading="lazy"
+        srcset=""
+        class="h-[290px] rounded-3xl object-cover p-4"
+      />
       <div class="flex flex-col gap-1 text-center">
         <p class="line-clamp-1">
           {{ product.title }}
