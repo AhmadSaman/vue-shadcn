@@ -32,7 +32,7 @@ const recordProductVisit = (product: Product) => {
 
 <template>
   <div
-    class="relative flex h-[400px] w-[300px] flex-col rounded-3xl border bg-white"
+    class="relative flex h-[400px] w-[300px] flex-col rounded-3xl bg-neutral-50"
   >
     <Button
       class="absolute -right-2 -top-2 z-10 h-10 rounded-full p-6 shadow transition-all duration-200 hover:scale-105 hover:bg-neutral-100"
@@ -42,7 +42,11 @@ const recordProductVisit = (product: Product) => {
     >
       <Star
         class="!size-5 text-neutral-900"
-        :class="favoritesStore.isFavorite(product.id) ? 'fill-neutral-900' : ''"
+        :class="
+          favoritesStore.isFavorite(product.id)
+            ? 'fill-neutral-900 dark:fill-neutral-50'
+            : ''
+        "
       />
     </Button>
     <Button
@@ -57,7 +61,7 @@ const recordProductVisit = (product: Product) => {
     <RouterLink
       @click="recordProductVisit(product)"
       :to="`/product/${product.slug}`"
-      class="flex flex-col items-center gap-1"
+      class="flex h-full flex-col items-center gap-1 rounded-3xl border bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800"
     >
       <img
         :src="product.images[0]"

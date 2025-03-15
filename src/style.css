@@ -116,6 +116,9 @@
   .custom-container {
     @apply w-[95%] md:w-[95%] lg:w-[80%] xl:w-[70%] 2xl:w-[60%];
   }
+  * {
+    @apply dark:text-neutral-50;
+  }
   :root {
     --radius: 0.5rem;
   }

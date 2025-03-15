@@ -52,7 +52,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="custom-container mx-auto my-5 flex flex-col gap-8">
+  <main class="custom-container mx-auto my-10 flex flex-col gap-8">
     <section class="relative flex items-center justify-center md:h-96">
       <div v-for="image in STATIC_IMAGES" :key="image.name">
         <img
@@ -68,12 +68,12 @@ onMounted(() => {
           type="text"
           v-model="searchQuery"
           placeholder="Search..."
-          class="rounded-3xl bg-white p-6 pl-12 text-base transition-all duration-200"
+          class="rounded-3xl bg-neutral-50 p-6 pl-12 text-base transition-all duration-200"
         />
         <span
           class="absolute inset-y-0 start-2 flex items-center justify-center px-2"
         >
-          <Search class="text-muted-foreground size-6" />
+          <Search class="size-6" />
         </span>
       </div>
     </section>

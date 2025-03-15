@@ -1,21 +1,24 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import { Button } from "./ui/button";
-import { Menu, Moon, Star } from "lucide-vue-next";
+import { Menu, Moon, Star, Sun } from "lucide-vue-next";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { routes } from "@/routes";
+import { useDarkModeStore } from "@/stores/dark";
+
+const darkModeStore = useDarkModeStore();
 </script>
 <template>
   <nav
     class="custom-container mx-auto flex items-center justify-between gap-6 py-6"
   >
-    <h1 class="text-2xl font-semibold md:text-lg">Shad/Vue</h1>
-    <div class="hidden flex-1 justify-between md:flex">
+    <h1 class="text-2xl font-semibold dark:text-white md:text-lg">Shad/Vue</h1>
+    <div class="hidden flex-1 justify-between dark:text-white md:flex">
       <ul class="flex items-center gap-2">
         <li v-for="link in routes" :key="link.route">
           <RouterLink
             :to="link.route"
-            class="rounded-3xl px-6 py-3 transition-colors duration-200 hover:bg-neutral-100"
+            class="rounded-3xl px-6 py-3 transition-colors duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-900"
             active-class="bg-neutral-900 text-neutral-50 hover:bg-neutral-900/90"
             v-if="link.isNavLink"
             >{{ link.title }}</RouterLink
@@ -27,8 +30,10 @@ import { routes } from "@/routes";
           class="h-10 rounded-3xl px-6 py-3 transition-colors duration-200"
           variant="secondary"
           size="icon"
+          @click="darkModeStore.toggleDarkMode"
         >
-          <Moon class="!size-5 text-neutral-900" />
+          <Sun v-if="darkModeStore.isDarkMode" class="!size-5" />
+          <Moon v-else class="!size-5" />
         </Button>
         <Button
           class="h-10 rounded-3xl px-6 py-3 transition-colors duration-200"
@@ -61,7 +66,7 @@ import { routes } from "@/routes";
             <li v-for="link in routes" :key="link.route">
               <RouterLink
                 :to="link.route"
-                class="rounded-full px-12 py-5 text-2xl transition-colors duration-200 hover:bg-neutral-100"
+                class="rounded-full px-12 py-5 text-2xl transition-colors duration-200 hover:bg-neutral-100 dark:text-neutral-50 dark:hover:bg-neutral-900"
                 active-class="bg-neutral-900 text-neutral-50 hover:bg-neutral-900/90"
                 v-if="link.isNavLink"
                 >{{ link.title }}</RouterLink
@@ -74,8 +79,10 @@ import { routes } from "@/routes";
                 class="h-16 w-full rounded-full px-6 py-3 transition-colors duration-200"
                 variant="secondary"
                 size="icon"
+                @click="darkModeStore.toggleDarkMode"
               >
-                <Moon class="!size-7" />
+                <Sun v-if="darkModeStore.isDarkMode" class="!size-7" />
+                <Moon v-else class="!size-7" />
               </Button>
               <Button
                 class="h-16 w-full rounded-full px-6 py-3 transition-colors duration-200"

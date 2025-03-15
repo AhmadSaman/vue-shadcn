@@ -77,7 +77,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="custom-container mx-auto h-full overflow-hidden">
+  <main class="custom-container mx-auto my-10 h-full overflow-hidden">
     <div class="flex flex-col gap-8">
       <section class="flex gap-2">
         <Button
@@ -107,7 +107,7 @@ onMounted(() => {
         <div
           v-else
           v-if="product"
-          class="flex h-[400px] flex-1 flex-col gap-4 rounded-3xl border bg-white px-6 py-10"
+          class="flex h-[400px] flex-1 flex-col gap-4 rounded-3xl border bg-neutral-50 px-6 py-10 dark:border-neutral-700 dark:bg-neutral-800"
         >
           <div class="flex justify-between">
             <h3 class="text-6xl font-semibold">{{ product.price }}$</h3>
@@ -118,7 +118,7 @@ onMounted(() => {
                 :class="
                   cn(
                     favoritesStore.isFavorite(product.id)
-                      ? 'fill-neutral-900'
+                      ? 'fill-neutral-900 dark:fill-neutral-50'
                       : '',
                   )
                 "
@@ -133,15 +133,17 @@ onMounted(() => {
           </div>
           <div class="flex flex-col gap-1">
             <p class="">Description:</p>
-            <p class="line-clamp-6 text-sm text-neutral-500">
+            <p
+              class="line-clamp-6 text-sm text-neutral-500 dark:text-neutral-300"
+            >
               {{ product.description }}
             </p>
           </div>
         </div>
       </section>
-      <section class="flex w-full flex-col gap-2">
+      <section class="flex w-full flex-col gap-8">
         <p class="text-center text-lg font-medium">Related Products</p>
-        <div class="flex w-full flex-wrap justify-center gap-2 self-center">
+        <div class="flex w-full flex-wrap justify-center gap-6 self-center">
           <div
             v-if="isProductLoading"
             v-for="skeleton in Array(6).fill(0)"

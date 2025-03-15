@@ -83,12 +83,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="custom-container mx-auto my-1 flex h-full flex-1 flex-col gap-3">
+  <main
+    class="custom-container mx-auto my-10 flex h-full flex-1 flex-col gap-8"
+  >
     <header class="flex flex-col gap-2">
       <h1 class="text-3xl font-medium md:text-4xl">Products Page</h1>
       <p>You can check all the Products here</p>
     </header>
-    <section class="flex flex-1 rounded-3xl border bg-white p-4">
+    <section
+      class="flex flex-1 rounded-3xl border bg-neutral-50 p-4 dark:border-neutral-700 dark:bg-neutral-800"
+    >
       <Table class="h-full">
         <TableHeader>
           <TableRow>
@@ -160,7 +164,7 @@ onMounted(() => {
                           :class="
                             cn(
                               favoritesStore.isFavorite(product.id)
-                                ? 'fill-neutral-900'
+                                ? 'fill-neutral-900 dark:fill-neutral-50'
                                 : '',
                             )
                           "
@@ -192,7 +196,9 @@ onMounted(() => {
     </section>
 
     <div class="flex items-center justify-between">
-      <div class="rounded-3xl border bg-white p-4 text-sm text-gray-600">
+      <div
+        class="rounded-3xl border bg-neutral-50 p-4 text-sm text-gray-600 dark:border-neutral-700 dark:bg-neutral-800"
+      >
         <span v-if="products.length > 0">
           Showing {{ (currentPage - 1) * pageSize + 1 }}-{{
             Math.min(
@@ -205,7 +211,9 @@ onMounted(() => {
         <span v-else>No items</span>
       </div>
 
-      <div class="flex items-center gap-1 rounded-3xl border bg-white p-2">
+      <div
+        class="flex items-center gap-1 rounded-3xl border bg-neutral-50 p-2 dark:border-neutral-700 dark:bg-neutral-800"
+      >
         <Button
           variant="secondary"
           size="icon"
