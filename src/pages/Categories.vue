@@ -58,9 +58,7 @@ const fetchCategories = async () => {
   try {
     const { data } = await getCategories();
     categories.value = data as Category[];
-    selectedCategories.value = categories.value[0].slug;
     isCategoriesLoading.value = false;
-    fetchProducts(categories.value[0].slug);
   } catch (error) {
     console.error("Failed to fetch products:", error);
     isCategoriesLoading.value = false;
@@ -145,6 +143,18 @@ onMounted(() => {
               <TableCell colspan="4" class="text-center">
                 <div class="flex h-full items-center justify-center">
                   <Loader2 class="animate-spin" />
+                </div>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+          <TableBody
+            v-else-if="products.length === 0 && !selectedCategories"
+            class="h-full"
+          >
+            <TableRow class="flex-1">
+              <TableCell colspan="4" class="text-center align-middle">
+                <div class="flex h-full items-center justify-center">
+                  <p>Try to click on a category</p>
                 </div>
               </TableCell>
             </TableRow>
