@@ -133,7 +133,7 @@ onMounted(() => {
       >
         <DataTable
           :products="products"
-          :is-loading="isProductLoading"
+          :is-loading="isProductLoading || isCategoriesLoading"
           :page-size="pageSize"
         />
       </section>
