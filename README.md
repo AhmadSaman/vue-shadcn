@@ -1,10 +1,10 @@
 # Vue + ShadCN Experiment
 
-This Project is using [ShadCN](https://ui.shadcn.com/)(vue version) with Vue using the Composition API. The project is built with TypeScript, Tailwind CSS, and other modern tools.
+This Project is using [ShadCN](https://www.shadcn-vue.com/)(vue version) with Vue using the Composition API. The project is built with TypeScript, Tailwind CSS, and other modern tools.
 
 ## What is ShadCN?
 
-ShadCN is a collection of accessible and customizable UI components built on top of Radix UI and Tailwind CSS. It provides a set of pre-styled components that you can copy and modify to fit your needs, without being locked into a design system.
+ShadCN is a collection of accessible and customizable UI components built on top of [Reka UI](https://www.reka-ui.com)([Radix UI](https://www.radix-vue.com/) replacement in Vue) and Tailwind CSS. It provides a set of pre-styled components that you can copy and modify to fit your needs, without being locked into a design system.
 
 ### How ShadCN Works
 - ShadCN components are not installed as a package but copied directly into your project.
