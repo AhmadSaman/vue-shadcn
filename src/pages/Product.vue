@@ -91,14 +91,14 @@ onMounted(() => {
       <section class="flex flex-col gap-2 md:flex-row">
         <div
           v-if="isProductLoading"
-          class="flex h-[400px] w-full flex-col items-center sm:w-auto md:w-1/3"
+          class="flex h-[300px] w-full flex-col items-center sm:w-auto md:h-[400px] md:w-1/3"
         >
           <Skeleton class="size-full" />
         </div>
         <ImgCarousel v-else v-if="product" :images="product.images" />
         <div
           v-if="isProductLoading"
-          class="flex h-[400px] w-full flex-col justify-center gap-4 rounded-3xl md:w-2/3"
+          class="flex h-[300px] w-full flex-col justify-center gap-4 rounded-3xl md:h-[400px] md:w-2/3"
         >
           <Skeleton class="size-full" />
         </div>
